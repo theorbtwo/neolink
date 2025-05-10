@@ -548,6 +548,12 @@ async fn listen_on_camera(camera: NeoInstance, mqtt_instance: MqttInstance) -> R
                                 }?;
                                 mqtt_battery
                                         .send_message("status/battery_level", format!("{}", xml.battery_percent).as_str(), true)
+                                        .send_message("status/battery_charge_status", xml.charge_status, true)
+                                        .send_message("status/battery_adapter_status", xml.adapter_status, true)
+                                        .send_message("status/battery_voltage", format!("{}", xml.voltage).as_str(), true)
+                                        .send_message("status/battery_current", format!("{}", xml.current).as_str(), true)
+                                        .send_message("status/battery_temperature", format!("{}", xml.temperature).as_str(), true)
+                                        .send_message("status/battery_low_power", format!("{}", xml.low_power).as_str(), true)
                                         .await
                                         .with_context(|| {
                                             format!("{}: Failed to publish battery", camera_name)
