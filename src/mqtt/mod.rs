@@ -553,13 +553,13 @@ async fn listen_on_camera(camera: NeoInstance, mqtt_instance: MqttInstance) -> R
                                             format!("{}: Failed to publish battery_level", camera_name)
                                         })?;
                                 mqtt_battery
-                                        .send_message("status/battery_charge_status", xml.charge_status, true)
+                                        .send_message("status/battery_charge_status", format!("{}", xml.charge_status).as_str(), true)
                                         .await
                                         .with_context(|| {
                                             format!("{}: Failed to publish battery_charge_status", camera_name)
                                         })?;
                                 mqtt_battery
-                                        .send_message("status/battery_adapter_status", xml.adapter_status, true)
+                                        .send_message("status/battery_adapter_status", format!("{}", xml.adapter_status).as_str(), true)
                                         .await
                                         .with_context(|| {
                                             format!("{}: Failed to publish battery_adapter_status", camera_name)
